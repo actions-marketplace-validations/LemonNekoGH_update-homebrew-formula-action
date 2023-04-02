@@ -4,7 +4,7 @@ import { BuildType, generateFormula } from './formula';
 
 const getRequiredInput = (name: string) => core.getInput(name, { required: true })
 const getBuildType = (): BuildType => {
-  const t = getRequiredInput('buildType')
+  const t = getRequiredInput('build-type')
   
   for (let b in BuildType) {
     if (t === BuildType[b]) {

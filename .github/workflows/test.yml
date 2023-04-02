@@ -25,11 +25,11 @@ jobs:
         tag: '0.0.2'
         url: 'https://github.com/example/tool'
         description: 'a description'
-        buildType: Go
+        build-type: Go
         main: 'main.go'
         homepage: 'https://github.com/example/tool'
-        licenseName: 'MIT'
-        formulaName: 'Tool'
-        commandName: 'tool'
+        license-name: 'MIT'
+        formula-name: 'Tool'
+        command-name: 'tool'
     - name: Check if file exists
       run: if [[ -e Formula/tool.rb ]]; then echo 'Success'; else exit 1; fi
