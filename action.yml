@@ -22,7 +22,7 @@ inputs:
   url:
     description: 'Your Formula source code git respository or package url'
     required: true
-  hoempage:
+  homepage:
     description: 'Your Formula homepage url'
     required: true
   license-name:
