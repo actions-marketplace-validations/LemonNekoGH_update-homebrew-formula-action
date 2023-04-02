@@ -2920,8 +2920,12 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
     });
     core.info('formula content generated');
     // output to file
-    (0,external_fs_.writeFileSync)(`Formula/${commandName}.rb`, formula);
-    core.info(`formula file wrote to Formula/${commandName}.rb`);
+    const ffileName = `Formula/${commandName}.rb`;
+    if (!(0,external_fs_.existsSync)('Formula')) {
+        (0,external_fs_.mkdirSync)('Formula', { recursive: true });
+    }
+    (0,external_fs_.writeFileSync)(ffileName, formula);
+    core.info(`formula file wrote to ${ffileName}`);
 });
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
