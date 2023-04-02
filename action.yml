@@ -1,13 +1,43 @@
-name: 'Wait'
-description: 'Wait a designated number of milliseconds'
+name: 'Update Homebrew Formula Action'
+description: 'Generate and write Formula file'
 inputs:
-  milliseconds:  # id of input
-    description: 'number of milliseconds to wait'
+  version:
+    description: 'Formula version, required unless tag specified'
+    required: false
+  tag:
+    description: 'Git tag for checkout'
+    required: false
+  sha256:
+    description: 'Sha256 of Formula binary or source code package, required unless tag specified'
+    required: false
+  description:
+    description: 'Your Formula description'
     required: true
-    default: '1000'
-outputs:
-  time: # output will be available to future steps
-    description: 'The current time after waiting'
+  formula-name:
+    description: 'Class name of Formula ruby class'
+    required: true
+  command-name:
+    description: 'Your Formula command name'
+    required: true
+  url:
+    description: 'Your Formula source code git respository or package url'
+    required: true
+  hoempage:
+    description: 'Your Formula homepage url'
+    required: true
+  license-name:
+    description: 'The open source license of your Formula'
+    required: true
+  build-type:
+    description: 'Your Formula language, currently only support Go'
+    required: true
+  main:
+    description: 'Your main.go file path, currently required'
+    required: true
+  ldflags:
+    description: 'ldflags during building'
+    required: false
+  
 runs:
   using: 'node16'
   main: 'dist/index.js'

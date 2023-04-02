@@ -27,10 +27,10 @@ const run = async() => {
     commandName,
     url: getRequiredInput('url'),
     homepage: getRequiredInput('homepage'),
-    licenseName: getRequiredInput('licenseName'),
+    licenseName: getRequiredInput('license-name'),
     buildType: getBuildType(),
     main: getRequiredInput('main'),
-    ldflags: getRequiredInput('ldflags')
+    ldflags: core.getInput('ldflags')
   })
   core.info('formula content generated')
   // output to file
