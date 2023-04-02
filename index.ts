@@ -1,5 +1,5 @@
 import * as core from '@actions/core'
-import { writeFileSync } from 'fs';
+import { existsSync, mkdirSync, openSync, writeFileSync } from 'fs';
 import { BuildType, generateFormula } from './formula';
 
 const getRequiredInput = (name: string) => core.getInput(name, { required: true })
@@ -34,8 +34,12 @@ const run = async() => {
   })
   core.info('formula content generated')
   // output to file
-  writeFileSync(`Formula/${commandName}.rb`, formula)
-  core.info(`formula file wrote to Formula/${commandName}.rb`)
+  const ffileName = `Formula/${commandName}.rb`
+  if (!existsSync('Formula')) {
+    mkdirSync('Formula', { recursive: true })
+  }
+  writeFileSync(ffileName, formula)
+  core.info(`formula file wrote to ${ffileName}`)
 }
 
 const main = async() => {
