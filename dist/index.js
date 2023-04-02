@@ -2893,7 +2893,7 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
 
 const getRequiredInput = (name) => core.getInput(name, { required: true });
 const getBuildType = () => {
-    const t = getRequiredInput('buildType');
+    const t = getRequiredInput('build-type');
     for (let b in BuildType) {
         if (t === BuildType[b]) {
             return BuildType[b];
@@ -2913,10 +2913,10 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
         commandName,
         url: getRequiredInput('url'),
         homepage: getRequiredInput('homepage'),
-        licenseName: getRequiredInput('licenseName'),
+        licenseName: getRequiredInput('license-name'),
         buildType: getBuildType(),
         main: getRequiredInput('main'),
-        ldflags: getRequiredInput('ldflags')
+        ldflags: core.getInput('ldflags')
     });
     core.info('formula content generated');
     // output to file
