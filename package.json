@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
-    "prepare": "ncc build index.ts -o dist --source-map --license licenses.txt",
+    "prepare": "tsc --noEmit --skipLibCheck && ncc build index.ts -o dist --source-map --license licenses.txt",
     "test": "vitest run --globals",
     "all": "pnpm run lint && pnpm run prepare && pnpm run test"
   },

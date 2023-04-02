@@ -1,18 +1,49 @@
 import * as core from '@actions/core'
+import { writeFileSync } from 'fs';
+import { BuildType, generateFormula } from './formula';
 
-// most @actions toolkit packages have async methods
-async function run() {
+const getRequiredInput = (name: string) => core.getInput(name, { required: true })
+const getBuildType = (): BuildType => {
+  const t = getRequiredInput('buildType')
+  
+  for (let b in BuildType) {
+    if (t === BuildType[b]) {
+      return BuildType[b]
+    }
+  }
+
+  throw new Error(`build type must be one of ${JSON.stringify(BuildType)}`)
+}
+
+const run = async() => {
+  // get inputs
+  const commandName = getRequiredInput('command-name')
+  const formula = generateFormula({
+    version: core.getInput('version'),
+    tag: core.getInput('tag'),
+    sha256: core.getInput('sha256'),
+    description: getRequiredInput('description'),
+    formulaName: getRequiredInput('formula-name'),
+    commandName,
+    url: getRequiredInput('url'),
+    homepage: getRequiredInput('homepage'),
+    licenseName: getRequiredInput('licenseName'),
+    buildType: getBuildType(),
+    main: getRequiredInput('main'),
+    ldflags: getRequiredInput('ldflags')
+  })
+  core.info('formula content generated')
+  // output to file
+  writeFileSync(`Formula/${commandName}.rb`, formula)
+  core.info(`formula file wrote to Formula/${commandName}.rb`)
+}
+
+const main = async() => {
   try {
-    const ms = core.getInput('milliseconds');
-    core.info(`Waiting ${ms} milliseconds ...`);
-
-    core.debug((new Date()).toTimeString()); // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
-    core.info((new Date()).toTimeString());
-
-    core.setOutput('time', new Date().toTimeString());
-  } catch (error) {
-    core.setFailed((error as Error).message);
+    await run()
+  } catch (e) {
+    core.setFailed(e as Error)
   }
 }
 
-run();
+main()
